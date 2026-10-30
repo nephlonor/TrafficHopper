@@ -1,0 +1,15 @@
+{
+  "name": "TrafficHopper",
+  "short_name": "TrafficHopper",
+  "description": "Welche Spur ist im Stau schneller?",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1115",
+  "theme_color": "#0f1115",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TrafficHopper</title>
+  <meta name="description" content="Welche Spur ist im Stau schneller? TrafficHopper sagt dir, ob du links, rechts oder in der Mitte bleiben sollst.">
+  <meta name="theme-color" content="#0f1115">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="safety" class="safety" role="dialog" aria-modal="true" aria-labelledby="safety-title" hidden>
+    <div class="safety__box">
+      <h2 id="safety-title">Nur als Beifahrer:in oder im Stillstand</h2>
+      <p>Handy am Steuer ist verboten und gefährlich. Lass die App von einer Beifahrerin oder einem Beifahrer bedienen.</p>
+      <p>Die Empfehlung ist eine Schätzung, keine Garantie. Spurwechsel bringen im Stau oft weniger, als es sich anfühlt.</p>
+      <button id="safety-ok" class="btn btn--primary" type="button">Verstanden</button>
+    </div>
+  </div>
+
+  <header class="top">
+    <h1 class="top__title">TrafficHopper</h1>
+    <button id="reset" class="btn btn--ghost" type="button">Neu starten</button>
+  </header>
+
+  <main class="main">
+    <section class="verdict" aria-live="polite">
+      <div id="verdict-arrow" class="verdict__arrow" aria-hidden="true">•</div>
+      <div>
+        <p id="verdict-text" class="verdict__text">Bleib auf deiner Spur</p>
+        <p id="verdict-confidence" class="verdict__confidence">Sicherheit: niedrig</p>
+      </div>
+    </section>
+
+    <section class="road-wrap" aria-label="Spuren – tippe deine Spur an">
+      <div id="road" class="road"></div>
+      <p class="hint">Tippe die Spur an, auf der du gerade fährst.</p>
+    </section>
+
+    <section class="observe" aria-label="Beobachtungen">
+      <h2 class="section-title">Was passiert neben dir?</h2>
+      <div class="observe__grid">
+        <div class="observe__side" data-side="left">
+          <span class="observe__label">Spur links</span>
+          <button class="btn btn--tap" type="button" data-side="left" data-faster="true">zieht an mir vorbei</button>
+          <button class="btn btn--tap" type="button" data-side="left" data-faster="false">ich überhole sie</button>
+        </div>
+        <div class="observe__side" data-side="right">
+          <span class="observe__label">Spur rechts</span>
+          <button class="btn btn--tap" type="button" data-side="right" data-faster="true">zieht an mir vorbei</button>
+          <button class="btn btn--tap" type="button" data-side="right" data-faster="false">ich überhole sie</button>
+        </div>
+      </div>
+      <p id="observe-count" class="hint">Noch keine Beobachtungen.</p>
+    </section>
+
+    <section class="setup" aria-label="Situation">
+      <h2 class="section-title">Situation</h2>
+
+      <div class="field">
+        <span class="field__label" id="lanes-label">Anzahl Spuren</span>
+        <div class="segmented" role="radiogroup" aria-labelledby="lanes-label" id="lanes"></div>
+      </div>
+
+      <div class="field">
+        <span class="field__label" id="traffic-label">Verkehr</span>
+        <div class="segmented" role="radiogroup" aria-labelledby="traffic-label" id="traffic">
+          <button type="button" role="radio" data-value="slow">zähfließend</button>
+          <button type="button" role="radio" data-value="stopgo">Stop-and-Go</button>
+          <button type="button" role="radio" data-value="standstill">Stillstand</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field__label">Voraus</span>
+        <label class="check"><input type="checkbox" id="onRamp"> Einfahrt (Autos fädeln rechts ein)</label>
+        <label class="check"><input type="checkbox" id="exitJam"> Ausfahrt mit Rückstau auf die Autobahn</label>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="laneEnds">Spur endet (Baustelle, Verengung)</label>
+        <select id="laneEnds" class="select"></select>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="incident">Unfall / Hindernis auf</label>
+        <select id="incident" class="select"></select>
+      </div>
+
+      <div class="field">
+        <span class="field__label">Viele LKW auf</span>
+        <div id="trucks" class="chips"></div>
+      </div>
+    </section>
+
+    <section class="reasons" aria-label="Begründung">
+      <h2 class="section-title">Warum?</h2>
+      <ul id="reasons" class="reasons__list"></ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Keine Daten verlassen dein Gerät. Funktioniert offline.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
